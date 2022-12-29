@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronômetro</title>
+</head>
+
+<body>
+    <div id="cronometro">00:00:00</div>
+
+    <button id="btn-iniciar">Iniciar</button>
+    <button id="btn-pausar">Pausar</button>
+    <button id="btn-resetar">Resetar</button>
+
+    <script>
+    // Variáveis para armazenar o tempo e o intervalo do cronômetro
+    let tempo = 0;
+    let intervalo;
+
+    // Função para iniciar o cronômetro
+    function iniciarCronometro() {
+        intervalo = setInterval(function() {
+        // Incrementa o tempo em 1 segundo
+        tempo++;
+
+        // Atualiza o elemento div com o novo tempo
+        document.getElementById("cronometro").innerHTML = formatarTempo(tempo);
+        }, 1000);
+    }
+
+    // Função para pausar o cronômetro
+    function pausarCronometro() {
+        clearInterval(intervalo);
+    }
+
+    // Função para resetar o cronômetro
+    function resetarCronometro() {
+        clearInterval(intervalo);
+        tempo = 0;
+        document.getElementById("cronometro").innerHTML = "00:00:00";
+    }
+
+    // Função para formatar o tempo em horas:minutos:segundos
+    function formatarTempo(segundos) {
+        let horas = Math.floor(segundos / 3600);
+        let minutos = Math.floor((segundos % 3600) / 60);
+        let segundosRestantes = segundos % 60;
+
+        // Adiciona um zero à esquerda dos valores com menos de 2 dígitos
+        if (horas < 10) {
+        horas = "0" + horas;
+        }
+        if (minutos < 10) {
+        minutos = "0" + minutos;
+        }
+        if (segundosRestantes < 10) {
+        segundosRestantes = "0" + segundosRestantes;
+        }
+
+        return horas + ":" + minutos + ":" + segundosRestantes;
+    }
+
+    // Adiciona os event listeners nos botões de início, pausa e reset
+    document.getElementById("btn-iniciar").addEventListener("click", iniciarCronometro);
+    document.getElementById("btn-pausar").addEventListener("click", pausarCronometro);
+    document.getElementById("btn-resetar").addEventListener("click", resetarCronometro);
+    </script>
+
+</body>
+</html>

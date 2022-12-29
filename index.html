@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+</head>
+
+<body>
+    <div id="stopwatch">00:00:00</div>
+
+    <button id="btn-start">Start</button>
+    <button id="btn-pause">Pause</button>
+    <button id="btn-reset">Reset</button>
+
+    <script>
+    // Variables to store stopwatch time and interval
+    let time = 0;
+    let interval;
+
+    // Function to start the stopwatch
+    function startStopwatch() {
+        interval = setInterval(function() {
+        // Increment 1 second in time
+        time++;
+
+        // Update the element with the time incremented
+        document.getElementById("stopwatch").innerHTML = setTime(time);
+        }, 1000);
+    }
+
+    // Function to pause the Stopwatch
+    function pauseStopwatch() {
+        clearInterval(interval);
+    }
+
+    // Function to reset the Stopwatch
+    function resetStopwatch() {
+        clearInterval(interval);
+        time = 0;
+        document.getElementById("stopwatch").innerHTML = "00:00:00";
+    }
+
+    // Function to format time in hours:minutes:seconds
+    function formatTime(seconds) {
+        let hours = Math.floor(seconds / 3600);
+        let minutes = Math.floor((seconds % 3600) / 60);
+        let secondsRemaing = seconds % 60;
+
+        // Adds a leading zero to values ​​with less than 2 digits
+        if (hours < 10) {
+        hours = "0" + hours;
+        }
+        if (minutes < 10) {
+        minutes = "0" + minutes;
+        }
+        if (secondsRemaing < 10) {
+        secondsRemaing = "0" + secondsRemaing;
+        }
+
+        return hours + ":" + minutes + ":" + secondsRemaing;
+    }
+
+    // Add event listeners to start, pause and reset buttons
+    document.getElementById("btn-start").addEventListener("click", startStopwatch);
+    document.getElementById("btn-pause").addEventListener("click", pauseStopwatch);
+    document.getElementById("btn-reset").addEventListener("click", resetStopwatch);
+    </script>
+
+</body>
+</html>
